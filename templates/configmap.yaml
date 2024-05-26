@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "app.fullname" . }}-default-cm
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  key1: "value1"
+  key2: "value2"
+  multiline.properties: |
+    mykey1=yourkey1
+    mykey2=yourkey2
+    mykey3=yourkey3
