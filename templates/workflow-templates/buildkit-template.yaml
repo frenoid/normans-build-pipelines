@@ -35,12 +35,13 @@ spec:
     parameters:
       - name: repo
         value: https://github.com/frenoid/ocp-etcd-backup.git
+        description: Git repo where Dockerfile is found
       - name: branch
         value: master
-      - name: path
-        value: ""
+        description: Choose branch of Git repo to use
       - name: dockerfilePath
         value: "Dockerfile"
+        descript: Relative path in repo where Dockerfile is located
       - name: image
         value: ""
   entrypoint: main
@@ -57,8 +58,8 @@ spec:
   - name: main
     dag:
       tasks:
-        - name: clone
-          template: clone
+        - name: clone-repo
+          template: clone-repo
           arguments:
             parameters:
               - name: repo
@@ -69,12 +70,12 @@ spec:
           template: build-image
           arguments:
             parameters:
-              - name: path
-                value: "{{`{{workflow.parameters.path}}`}}"
+              - name: dockerfilePath
+                value: "{{`{{workflow.parameters.dockerfilePath}}`}}"
               - name: image
                 value: "{{`{{workflow.parameters.image}}`}}"
-          depends: "build"
-  - name: clone
+          depends: "clone-repo"
+  - name: clone-repo
     inputs:
       parameters:
         - name: repo
@@ -99,7 +100,6 @@ spec:
   - name: build-image
     inputs:
       parameters:
-      - name: path
       - name: image
       - name: dockerfilePath
     # Mount the configuration so we can push the image.
@@ -118,7 +118,7 @@ spec:
           mountPath: /work
         - name: docker-config
           mountPath: /.docker
-      workingDir: /work/{{`{{inputs.parameters.path}}`}}
+      workingDir: /work/{{`{{inputs.parameters.dockerfilePath}}`}}
       env:
         - name: BUILDKITD_FLAGS
           value: --oci-worker-no-process-sandbox
@@ -133,6 +133,6 @@ spec:
         - --local
         - context=.
         - --local
-        - dockerfile="{{`{{inputs.parameters.dockerfilePath}}`}}"
+        - dockerfile=.
         - --output
         - type=image,name=docker.io/{{`{{inputs.parameters.image}}`}},push=false
