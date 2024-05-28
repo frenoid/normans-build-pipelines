@@ -40,10 +40,22 @@ spec:
         value: master
         description: Choose branch of Git repo to use
       - name: dockerfilePath
+        value: "."
+        description: Relative path in repo where Dockerfile is located
+      - name: dockerfileName
         value: "Dockerfile"
-        descript: Relative path in repo where Dockerfile is located
-      - name: image
-        value: ""
+        description: Filename of dockerfile in dockerfilePath
+      - name: imageName
+        value: "test"
+        description: "Image reference on docker.io e.g docker.io/<imageName>"
+      - name: imageTag
+        value: "latest"
+        description: "Image reference on docker.io e.g docker.io/<imageName>/<imageTag>"
+      - name: push
+        value: false
+        enum:
+        - true
+        - false
   entrypoint: main
   # We use a volume claim template so that we can have a shared workspace.
   volumeClaimTemplates:
@@ -102,6 +114,8 @@ spec:
       parameters:
       - name: image
       - name: dockerfilePath
+      - name: dockerfileName
+      - name: push
     # Mount the configuration so we can push the image.
     # This should create the /.docker/config.json file.
     volumes:
@@ -133,6 +147,6 @@ spec:
         - --local
         - context=.
         - --local
-        - dockerfile=.
+        - dockerfile={{`{{inputs.parameters.dockerfileName}}`}}
         - --output
-        - type=image,name=docker.io/{{`{{inputs.parameters.image}}`}},push=false
+        - type=image,name=docker.io/{{`{{inputs.parameters.image}}`}},push={{`{{inputs.parameters.push}}`}}
