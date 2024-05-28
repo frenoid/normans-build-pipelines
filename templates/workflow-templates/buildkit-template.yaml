@@ -46,7 +46,7 @@ spec:
         value: "Dockerfile"
         description: Filename of dockerfile in dockerfilePath
       - name: imageName
-        value: "test"
+        value: "test/test"
         description: "Image reference on docker.io e.g docker.io/<imageName>"
       - name: imageTag
         value: "latest"
