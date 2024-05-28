@@ -84,8 +84,8 @@ spec:
             parameters:
               - name: dockerfilePath
                 value: "{{`{{workflow.parameters.dockerfilePath}}`}}"
-              - name: image
-                value: "{{`{{workflow.parameters.image}}`}}"
+              - name: imageName
+                value: "{{`{{workflow.parameters.imageName}}`}}"
           depends: "clone-repo"
   - name: clone-repo
     inputs:
@@ -112,7 +112,7 @@ spec:
   - name: build-image
     inputs:
       parameters:
-      - name: image
+      - name: imageName
       - name: dockerfilePath
       - name: dockerfileName
       - name: push
@@ -149,4 +149,4 @@ spec:
         - --local
         - dockerfile={{`{{inputs.parameters.dockerfileName}}`}}
         - --output
-        - type=image,name=docker.io/{{`{{inputs.parameters.image}}`}},push={{`{{inputs.parameters.push}}`}}
+        - type=image,name=docker.io/{{`{{inputs.parameters.imageName}}`}},push={{`{{inputs.parameters.push}}`}}
