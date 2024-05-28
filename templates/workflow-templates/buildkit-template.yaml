@@ -78,8 +78,8 @@ spec:
                 value: "{{`{{workflow.parameters.repo}}`}}"
               - name: branch
                 value: "{{`{{workflow.parameters.branch}}`}}"
-        - name: build-image
-          template: build-image
+        - name: build-push-image
+          template: build-push-image
           arguments:
             parameters:
               - name: dockerfilePath
@@ -113,7 +113,7 @@ spec:
         - --single-branch
         - "{{`{{inputs.parameters.repo}}`}}"
         - .
-  - name: build-image
+  - name: build-push-image
     inputs:
       parameters:
       - name: imageName
