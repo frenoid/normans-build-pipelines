@@ -34,7 +34,7 @@ spec:
   arguments:
     parameters:
       - name: repo
-        value: https://github.com/frenoid/ocp-etcd-backup.git
+        value: https://github.com/frenoid/trino-load-tester.git
         description: Git repo where Dockerfile is found
       - name: branch
         value: master
@@ -151,6 +151,7 @@ spec:
         - --local
         - context=.
         - --local
-        - dockerfile={{`{{inputs.parameters.dockerfileName}}`}}
+        - dockerfile=.
         - --output
         - type=image,name=docker.io/{{`{{inputs.parameters.imageName}}`}},push={{`{{inputs.parameters.push}}`}}
+        - --opt filename={{`{{inputs.parameters.dockerfileName}}`}}
