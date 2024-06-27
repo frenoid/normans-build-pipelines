@@ -1,3 +1,5 @@
+# Source: https://github.com/argoproj/argo-workflows/blob/main/examples/buildkit-template.yaml
+#
 # SUMMARY:
 #
 # Build and push an image using Docker Buildkit.
@@ -97,10 +99,17 @@ spec:
       parameters:
         - name: repo
         - name: branch
+    # Mount ssh keys secrets as volume
+    volumes:
+    - name: ssh-keys
+      secret:
+        secretName: github-ssh
     container:
       volumeMounts:
-        - mountPath: /work
-          name: work
+      - mountPath: /work
+        name: work
+      - mountPath: /root/.ssh
+        name: ssh-keys
       image: alpine/git:v2.26.2
       workingDir: /work
       # Do a shallow clone, which is the fastest way to clone, by using the
