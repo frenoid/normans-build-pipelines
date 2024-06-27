@@ -35,7 +35,7 @@ spec:
   arguments:
     parameters:
       - name: repo
-        value: https://github.com/frenoid/trino-load-tester.git
+        value: https://github.com/alpinelinux/docker-alpine.git
         description: Git repo where Dockerfile is found
       - name: branch
         value: master
@@ -47,7 +47,7 @@ spec:
         value: "Dockerfile"
         description: Filename of dockerfile in dockerfilePath
       - name: imageName
-        value: "test/test"
+        value: "alpine/alpine"
         description: "Image reference on docker.io e.g docker.io/<imageName>"
       - name: imageTag
         value: "latest"
@@ -66,7 +66,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 1Gi
+            storage: 10Gi
   templates:
   - name: main
     dag:

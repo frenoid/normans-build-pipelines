@@ -18,5 +18,13 @@ Note about templating: Where a workflow uses
 ```
 so that helm template treats it as a string literal.
 
+## Argo Workflow configurations
+[cm-artifact-repositories.yaml](./templates/argo-workflow-configs/cm-artifact-repositories.yaml) defines the repository configurations used for Argo Workflow
+
+[cm-controller-configmap.yaml](./templates/argo-workflow-configs/cm-controller-configmap.yaml) defines defaults for any Workflow created in the `build-pipelines `namespace
+
+## Secrets
+[sealed-secrets](./templates/sealed-secrets/) are credentials used to connect to S3, Dockerhub and Github
+
 ## Workflow Templates
 [templates/workflow-templates](./templates/workflow-templates/)
