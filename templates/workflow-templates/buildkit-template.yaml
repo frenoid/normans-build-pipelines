@@ -115,7 +115,7 @@ spec:
       # Do a shallow clone, which is the fastest way to clone, by using the
       # --depth, --branch, and --single-branch options
       args:
-      - git clone
+      - clone
       - --depth
       - "1"
       - --branch
