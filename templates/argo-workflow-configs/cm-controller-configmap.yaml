@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argo-workflows-workflow-controller-configmap
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+data:
+  config: |
+    artifactRepository:
+      s3:
+        accessKeySecret:
+          key: access-key
+          name: aws-s3-normans-artifactory
+        secretKeySecret:
+          key: secret-key
+          name: aws-s3-normans-artifactory
+        bucket: normans-artifactory
+        endpoint: s3.ap-southeast-1.amazonaws.com
+        insecure: false
+        region: ap-southeast-1
+        useSDKCreds: true
+        encryptionOptions:
+          enableEncryption: true
+    workflowDefaults:
+      spec:
+        artifactRepositoryRef:
+          configMap: artifact-repositories
+          key: default-v1-s3-artifact-repository
+        ttlStrategy:
+          secondsAfterCompletion: 84600
+    nodeEvents:
+      enabled: true
