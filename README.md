@@ -28,3 +28,6 @@ so that helm template treats it as a string literal.
 
 ## Workflow Templates
 [templates/workflow-templates](./templates/workflow-templates/)
+
+### Buildkit Template
+[buildkit-template](./templates/workflow-templates/buildkit-template.yaml) clones a git repo, builds an image from a Dockerfile, and pushes it into a repo on Dockerhub
