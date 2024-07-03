@@ -125,6 +125,8 @@ spec:
       - -c
       args:
       - |
+        set -e
+        set -x
         export REPO_WITH_PAT=$(echo "{{`{{inputs.parameters.repo}}`}}" | sed "s|https://|https://$GITHUB_PAT@|") \
         && git clone \
         --depth "1" \
