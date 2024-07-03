@@ -120,15 +120,18 @@ spec:
       workingDir: /work
       # Do a shallow clone, which is the fastest way to clone, by using the
       # --depth, --branch, and --single-branch options
+      command:
+      - /bin/sh
+      - -c
       args:
-      - clone
-      - --depth
-      - "1"
-      - --branch
-      - "{{`{{inputs.parameters.branch}}`}}"
-      - --single-branch
-      - "{{`{{inputs.parameters.repo}}`}}"
-      - .
+      - |
+        export REPO_WITH_PAT=$(echo "{{`{{inputs.parameters.repo}}`}}" | sed "s|https://|https://$GITHUB_PAT@|") \
+        && git clone \
+        --depth "1" \
+        --branch "{{`{{inputs.parameters.branch}}`}}" \
+        --single-branch \
+        $REPO_WITH_PAT \
+        .
   - name: build-push-image
     inputs:
       parameters:
