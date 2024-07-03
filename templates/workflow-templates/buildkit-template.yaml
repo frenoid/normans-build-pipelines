@@ -110,6 +110,12 @@ spec:
         name: work
       - mountPath: /root/.ssh
         name: ssh-keys
+      env:
+      - name: "GITHUB_PAT"
+        valueFrom:
+          secretKeyRef:
+            name: github-pat
+            key: token
       image: alpine/git:v2.26.2
       workingDir: /work
       # Do a shallow clone, which is the fastest way to clone, by using the
