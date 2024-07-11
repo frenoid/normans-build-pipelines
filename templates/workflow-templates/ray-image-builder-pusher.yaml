@@ -172,12 +172,12 @@ spec:
         - --local
         - context=.
         - --local
-        - dockerfile=.                                                      # Directory set by workingDir
+        - dockerfile=.                                                            # Directory set by workingDir
         - --output
         - type=image,name=docker.io/{{`{{inputs.parameters.imageName}}`}},push={{`{{inputs.parameters.push}}`}}
         - --opt
-        - filename=./{{`{{inputs.parameters.dockerfileName}}`}}             # Typically "Dockerfile"
+        - filename=./{{`{{inputs.parameters.dockerfileName}}`}}                   # Typically "Dockerfile"
         - --opt
-        - build-arg:PYTHON_VERSION={{inputs.parameters.pythonVersion}}      # Dockerfile ARG PYTHON_VERSION
+        - build-arg:PYTHON_VERSION={{`{{inputs.parameters.pythonVersion}}`}}      # Dockerfile ARG PYTHON_VERSION
         - --opt
-        - build-arg:COMPUTE={{inputs.parameters.computeType}}               # Dockerfile ARG COMPUTE
+        - build-arg:COMPUTE={{`{{inputs.parameters.computeType}}`}}               # Dockerfile ARG COMPUTE
