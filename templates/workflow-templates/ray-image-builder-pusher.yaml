@@ -80,13 +80,47 @@ spec:
           arguments:
             parameters:
               - name: dockerfilePath
-                value: "./{{`{{workflow.parameters.rayVersion}}`}}"   # Repo is arranged such that Dockerfile for 2.23.0 is located at "/2.23.0/Dockerfile"
+                value: "./{{`{{workflow.parameters.rayVersion}}`}}"              # Repo is arranged such that Dockerfile for 2.23.0 is located at "/2.23.0/Dockerfile"
               - name: dockerfileName
                 value: "Dockerfile"
               - name: imageName
                 value: "docker.io/frenoid/ray:{{`{{workflow.parameters.rayVersion}}`}}-py39-cpu-{{`{{workflow.parameters.dbsTagVersion}}`}}" # e.g. docker.io/frenoid/ray:2.23.0-py39-cpu-dbs-v1
               - name: pythonVersion
                 value: "39"
+              - name: computeType
+                value: "cpu"
+              - name: push
+                value: "{{`{{workflow.parameters.push}}`}}"
+          depends: "clone-repo"
+        - name: build-push-ray-image-py310-cpu
+          template: build-push-ray-image
+          arguments:
+            parameters:
+              - name: dockerfilePath
+                value: "./{{`{{workflow.parameters.rayVersion}}`}}"              # Repo is arranged such that Dockerfile for 2.23.0 is located at "/2.23.0/Dockerfile"
+              - name: dockerfileName
+                value: "Dockerfile"
+              - name: imageName
+                value: "docker.io/frenoid/ray:{{`{{workflow.parameters.rayVersion}}`}}-py310-cpu-{{`{{workflow.parameters.dbsTagVersion}}`}}" # e.g. docker.io/frenoid/ray:2.23.0-py39-cpu-dbs-v1
+              - name: pythonVersion
+                value: "310"
+              - name: computeType
+                value: "cpu"
+              - name: push
+                value: "{{`{{workflow.parameters.push}}`}}"
+          depends: "clone-repo"
+        - name: build-push-ray-image-py311-cpu
+          template: build-push-ray-image
+          arguments:
+            parameters:
+              - name: dockerfilePath
+                value: "./{{`{{workflow.parameters.rayVersion}}`}}"              # Repo is arranged such that Dockerfile for 2.23.0 is located at "/2.23.0/Dockerfile"
+              - name: dockerfileName
+                value: "Dockerfile"
+              - name: imageName
+                value: "docker.io/frenoid/ray:{{`{{workflow.parameters.rayVersion}}`}}-py310-cpu-{{`{{workflow.parameters.dbsTagVersion}}`}}" # e.g. docker.io/frenoid/ray:2.23.0-py39-cpu-dbs-v1
+              - name: pythonVersion
+                value: "311"
               - name: computeType
                 value: "cpu"
               - name: push
